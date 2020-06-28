@@ -1,0 +1,33 @@
+(base) dkumar-m18mba:~ dkumar1$ oc get all
+NAME                            READY     STATUS      RESTARTS   AGE
+pod/mysql-56-centos7-1-deploy   0/1       Completed   0          40m
+pod/mysql-56-centos7-1-k225s    1/1       Running     0          40m
+pod/wordpress-1-build           0/1       Completed   0          12m
+pod/wordpress-1-deploy          0/1       Completed   0          10m
+pod/wordpress-1-lnmm4           1/1       Running     0          9m54s
+
+NAME                                       DESIRED   CURRENT   READY     AGE
+replicationcontroller/mysql-56-centos7-1   1         1         1         40m
+replicationcontroller/wordpress-1          1         1         1         10m
+
+NAME                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
+service/mysql-56-centos7   ClusterIP   172.30.163.245   <none>        3306/TCP            40m
+service/wordpress          ClusterIP   172.30.170.215   <none>        8080/TCP,8443/TCP   12m
+
+NAME                                                  REVISION   DESIRED   CURRENT   TRIGGERED BY
+deploymentconfig.apps.openshift.io/mysql-56-centos7   1          1         1         config,image(mysql-56-centos7:latest)
+deploymentconfig.apps.openshift.io/wordpress          1          1         1         config,image(wordpress:latest)
+
+NAME                                       TYPE      FROM      LATEST
+buildconfig.build.openshift.io/wordpress   Source    Git       1
+
+NAME                                   TYPE      FROM          STATUS     STARTED          DURATION
+build.build.openshift.io/wordpress-1   Source    Git@570b6e0   Complete   12 minutes ago   2m54s
+
+NAME                                              IMAGE REPOSITORY                                                                                       TAGS      UPDATED
+imagestream.image.openshift.io/mysql-56-centos7   default-route-openshift-image-registry.apps.ocp-ap3.prod.nextcle.com/firstproject-1/mysql-56-centos7   latest    40 minutes ago
+imagestream.image.openshift.io/wordpress          default-route-openshift-image-registry.apps.ocp-ap3.prod.nextcle.com/firstproject-1/wordpress          latest    10 minutes ago
+
+NAME                                 HOST/PORT                                                PATH      SERVICES    PORT       TERMINATION   WILDCARD
+route.route.openshift.io/wordpress   wordpress-firstproject-1.apps.ocp-ap3.prod.nextcle.com             wordpress   8080-tcp                 None
+(base) dkumar-m18mba:~ dkumar1$
